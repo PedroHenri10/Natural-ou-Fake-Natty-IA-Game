@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Natty or Not — Jogo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Natty or Not</h1>
+      <p>São reais ou geradas por IA? Tente adivinhar!</p>
+    </header>
+
+    <section id="game" class="card">
+      <div id="progress">Imagem <span id="currentIndex">1</span> / <span id="total">10</span></div>
+
+      <div class="image-wrap">
+        <img id="mainImage" src="" alt="Imagem do desafio" />
+      </div>
+
+      <div class="choices">
+        <button id="btnReal" class="btn real">Real</button>
+        <button id="btnFake" class="btn fake">IA (Fake)</button>
+      </div>
+
+      <div id="feedback" class="feedback hidden"></div>
+
+      <div class="controls">
+        <button id="btnNext" class="btn next hidden">Próxima imagem</button>
+        <button id="btnReveal" class="btn reveal">Revelar Verdade</button>
+      </div>
+    </section>
+
+    <section id="result" class="card hidden">
+      <h2>Resultado</h2>
+      <p id="scoreText"></p>
+      <div id="breakdown" class="breakdown"></div>
+      <button id="btnPlayAgain" class="btn">Jogar novamente</button>
+    </section>
+
+    <footer>
+     
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
