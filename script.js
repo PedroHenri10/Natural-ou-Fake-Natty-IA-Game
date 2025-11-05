@@ -57,4 +57,94 @@ const images = [
     if (enabled) { btnReal.classList.remove('disabled'); btnFake.classList.remove('disabled'); }
   }
   
- 
+  function handleGuess(guessIsReal) {
+    const item = deck[currentIndex];
+    const correct = (guessIsReal === item.isReal);
+    answers.push({ image: item, guessIsReal, correct });
+  
+    feedback.classList.remove('hidden');
+    feedback.textContent = correct ? 'Acertou!' : 'Errou!';
+    feedback.style.background = correct ? 'rgba(40,167,69,0.12)' : 'rgba(220,53,69,0.12)';
+    feedback.style.color = correct ? '#155724' : '#721c24';
+  
+    enableChoices(false);
+    btnNext.classList.remove('hidden');
+    btnReveal.classList.remove('hidden');
+  }
+  
+  btnReal.addEventListener('click', () => handleGuess(true));
+  btnFake.addEventListener('click', () => handleGuess(false));
+  
+  btnNext.addEventListener('click', () => {
+    currentIndex++;
+    if (currentIndex >= deck.length) {
+      showResults();
+    } else {
+      showImage(currentIndex);
+    }
+  });
+  
+  btnReveal.addEventListener('click', () => {
+    const item = deck[currentIndex];
+    feedback.classList.remove('hidden');
+    feedback.textContent = item.isReal ? 'Verdade: Real' : 'Verdade: Gerada por IA';
+    feedback.style.background = item.isReal ? 'rgba(40,167,69,0.12)' : 'rgba(220,53,69,0.12)';
+  });
+  
+  function showResults() {
+    gameSection.classList.add('hidden');
+    resultSection.classList.remove('hidden');
+  
+    const total = answers.length;
+    const correctCount = answers.filter(a => a.correct).length;
+    scoreText.textContent = `Você acertou ${correctCount} de ${deck.length} imagens.`;
+  
+    breakdown.innerHTML = '';
+    deck.forEach((itm, idx) => {
+      const ans = answers[idx] || null;
+      const div = document.createElement('div');
+      div.className = 'item';
+  
+      const img = document.createElement('img');
+      img.src = itm.src;
+      img.alt = itm.caption || `img-${idx+1}`;
+  
+      const info = document.createElement('div');
+      info.style.flex = '1';
+  
+      const title = document.createElement('div');
+      title.textContent = itm.caption || `Imagem ${idx+1}`;
+  
+      const guessText = document.createElement('div');
+      if (ans) {
+        guessText.textContent = `Seu palpite: ${ans.guessIsReal ? 'Real' : 'IA'} — ${ans.correct ? 'ACERTO' : 'ERRO'}`;
+        guessText.style.color = ans.correct ? 'var(--good)' : 'var(--bad)';
+      } else {
+        guessText.textContent = 'Sem palpite';
+        guessText.style.color = 'var(--muted)';
+      }
+  
+      const truth = document.createElement('div');
+      truth.textContent = `Verdade: ${itm.isReal ? 'Real' : 'IA'}`;
+  
+      info.appendChild(title);
+      info.appendChild(guessText);
+      info.appendChild(truth);
+  
+      div.appendChild(img);
+      div.appendChild(info);
+      breakdown.appendChild(div);
+    });
+  }
+  
+  btnPlayAgain.addEventListener('click', () => {
+    deck = shuffleArray([...images]);
+    currentIndex = 0;
+    answers = [];
+    resultSection.classList.add('hidden');
+    gameSection.classList.remove('hidden');
+    showImage(0);
+  });
+  
+  showImage(0);
+  
