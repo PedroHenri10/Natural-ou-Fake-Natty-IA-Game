@@ -40,4 +40,21 @@ const images = [
   
   totalSpan.textContent = deck.length;
   
+  function showImage(index) {
+    const item = deck[index];
+    currentIndexSpan.textContent = index + 1;
+    mainImage.src = item.src;
+    mainImage.alt = item.caption || 'Desafio de imagem';
+    feedback.classList.add('hidden');
+    btnNext.classList.add('hidden');
+    btnReveal.classList.remove('hidden');
+    enableChoices(true);
+  }
   
+  function enableChoices(enabled) {
+    btnReal.disabled = !enabled;
+    btnFake.disabled = !enabled;
+    if (enabled) { btnReal.classList.remove('disabled'); btnFake.classList.remove('disabled'); }
+  }
+  
+ 
