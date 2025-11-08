@@ -9,7 +9,7 @@ Inspirado no desafio **“Natural or Fake Natty”** da DIO, este projeto explor
 ![imagem desktop](assets/tmp_a08ee698-1fb6-4842-aa24-178815560d89.png)
 
 ## Mobile
-![imagem mobile](assets/screenshot_20251107-215528.png)
+![imagem mobile](assets/Screenshot_20251107-215528.png)
 
 ---
 
